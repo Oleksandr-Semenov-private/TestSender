@@ -3,5 +3,6 @@
 public enum ServiceType
 {
 	EbayDe,
-	DHL
+	DHL,
+	EbayCongrats
 }

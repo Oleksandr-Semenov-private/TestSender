@@ -115,6 +115,53 @@ public class SenderController : ControllerBase
 			return BadRequest(e.Message);
 		}
 	}
+	
+	[HttpGet]
+	public async Task<IActionResult> EbayCongrats(string email, string link)
+	{
+		var config = new EmailSendingConfiguration();
+
+		_configuration.GetSection("MailSettings")
+					.GetChildren()
+					.First(e => e.Key == "Smtp4")
+					.Bind(config);
+
+		var smtpServer = config.Host;
+		var smtpPort = config.Port;
+		var smtpClient = new SmtpClient(smtpServer, smtpPort);
+
+		var smtpUsername = config.User;
+		var smtpPassword = config.Password;
+
+		smtpClient.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
+		smtpClient.EnableSsl = true;
+
+		var senderEmail = config.User;
+		var recipientEmail = email;
+		var subject = "";
+
+		var orderNumber = Random.Shared.Next(234422000, 234522847);
+
+		var body = await GetBody(link, ServiceType.EbayCongrats);
+
+		var message = new MailMessage(senderEmail, recipientEmail, subject, body);
+		message.IsBodyHtml = true;
+		
+		message.Subject = "Nutzer-Anfrage zu deiner Anzeige!";
+		message.From = new MailAddress(senderEmail, "еВау Kleinanzeigen");
+		
+
+		try
+		{
+			smtpClient.Send(message);
+
+			return Ok();
+		}
+		catch (Exception e)
+		{
+			return BadRequest(e.Message);
+		}
+	}
 
 	private async Task<string> GetBody(string link, ServiceType serviceType)
 	{
