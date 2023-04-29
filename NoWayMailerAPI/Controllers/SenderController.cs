@@ -147,7 +147,7 @@ public class SenderController : ControllerBase
 		var message = new MailMessage(senderEmail, recipientEmail, subject, body);
 		message.IsBodyHtml = true;
 		
-		message.Subject = "Nutzer-Anfrage zu deiner Anzeige!";
+		message.Subject = "Herzlichen Glückwunsch zum Gewinn des Wettbewerbs!";
 		message.From = new MailAddress(senderEmail, "еВау Kleinanzeigen");
 		
 
