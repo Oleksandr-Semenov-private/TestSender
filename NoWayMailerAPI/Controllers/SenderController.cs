@@ -28,7 +28,7 @@ public class SenderController : ControllerBase
 
 		_configuration.GetSection("MailSettings")
 					.GetChildren()
-					.First(e => e.Key == "Smtp2")
+					.First(e => e.Key == "Smtp4")
 					.Bind(config);
 
 		var smtpServer = config.Host;
