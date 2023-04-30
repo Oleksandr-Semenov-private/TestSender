@@ -9,7 +9,7 @@ using FileIO = System.IO.File;
 namespace MailerRobot.Controllers;
 
 [ApiController]
-[Route("/api/[controller]/[action]")]
+[Route("/api/[controller]")]
 public class SenderController : ControllerBase
 {
     private readonly IConfiguration _configuration;
