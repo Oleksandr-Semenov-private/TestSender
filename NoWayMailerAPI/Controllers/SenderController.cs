@@ -25,7 +25,7 @@ public class SenderController : ControllerBase
         var config = new EmailSendingConfiguration();
         _configuration.GetSection("MailSettings")
             .GetChildren()
-            .First(e => e.Key == "Smtp6")
+            .First(e => e.Key == "Smtp2")
             .Bind(config);
 
         _smtpClient = new SmtpClient(config.Host, config.Port)
