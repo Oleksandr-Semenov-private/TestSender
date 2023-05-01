@@ -118,7 +118,6 @@ public class SenderController : ControllerBase
 							.Replace("PutYourLinkHere", shortLink);
 
 		return hmtlBody
-                .Replace("3515418513", Random.Shared.Next(351540000, 351548888).ToString())
-                .Replace("27-04-2023", DateTime.Now.ToString("dd-MM-yyyy"));
+                .Replace("DateNow", DateTime.Now.ToString("dd-MM-yyyy"));
     }
 }
