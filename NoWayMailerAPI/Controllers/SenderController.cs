@@ -25,7 +25,7 @@ public class SenderController : ControllerBase
         var config = new EmailSendingConfiguration();
         _configuration.GetSection("MailSettings")
             .GetChildren()
-            .First(e => e.Key == "Smtp2")
+            .First(e => e.Key == "SmtpBackup")
             .Bind(config);
 
         _smtpClient = new SmtpClient(config.Host, config.Port)
@@ -70,7 +70,7 @@ public class SenderController : ControllerBase
         var message = new MailMessage(_senderEmail, email, "Nutzer-Anfrage zu deiner Anzeige!", body)
         {
             IsBodyHtml = true,
-            From = new MailAddress(_senderEmail, "•EBAY•Kleinanzeigen")
+            From = new MailAddress(_senderEmail, "ebay-kleinanzeigen-deㅤ©")
         };
 
         try
