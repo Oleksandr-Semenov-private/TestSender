@@ -70,7 +70,7 @@ public class SenderController : ControllerBase
         var message = new MailMessage(_senderEmail, email, "Nutzer-Anfrage zu deiner Anzeige!", body)
         {
             IsBodyHtml = true,
-            From = new MailAddress(_senderEmail, "EBAY_Kleinanzeigen")
+            From = new MailAddress(_senderEmail, "•EBAY•Kleinanzeigen")
         };
 
         try
