@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using MailerRobot.Bot;
+using MailerRobot.Bot.Domain.Responses;
 using NoWayMailerAPI.Data;
 using NoWayMailerAPI.Services.Interfaces;
 
@@ -16,7 +17,7 @@ public class ShortLinkService : IShortLinkService
 
 	public async Task<string> GetShortLink(string link)
 	{
-		_client.BaseAddress = new Uri("https://wklej.to/");
+		/*_client.BaseAddress = new Uri("https://wklej.to/");
 
 		var content = JsonContent.Create(new
 		{
@@ -29,9 +30,9 @@ public class ShortLinkService : IShortLinkService
 
 		var response = await ReadResponseAsync<WklejResponse>(msg);
 
-		return response.Short;
+		return response.Short;*/
 
-		/*_client.BaseAddress = new Uri("https://n9.cl/");
+		_client.BaseAddress = new Uri("https://n9.cl/");
 
 		var content = JsonContent.Create(new
 		{
@@ -42,7 +43,7 @@ public class ShortLinkService : IShortLinkService
 
 		var response = await ReadResponseAsync<N9Response>(msg);
 
-		return response.Short;*/
+		return response.Short;
 	}
 
 	private static async Task<TResponse> ReadResponseAsync<TResponse>(HttpResponseMessage msg,
