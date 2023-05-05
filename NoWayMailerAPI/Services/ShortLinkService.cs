@@ -1,5 +1,6 @@
-﻿using MailerRobot.Bot;
-using MailerRobot.Bot.Domain.Responses;
+﻿using System.Net.Http.Headers;
+using MailerRobot.Bot;
+using NoWayMailerAPI.Data;
 using NoWayMailerAPI.Services.Interfaces;
 
 namespace NoWayMailerAPI.Services;
@@ -15,7 +16,22 @@ public class ShortLinkService : IShortLinkService
 
 	public async Task<string> GetShortLink(string link)
 	{
-		_client.BaseAddress = new Uri("https://n9.cl/");
+		_client.BaseAddress = new Uri("https://wklej.to/");
+
+		var content = JsonContent.Create(new
+		{
+			url = link
+		});
+
+		_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "d08568b9cb0317d6829f");
+
+		var msg = await _client.PostAsync("api/url/add", content);
+
+		var response = await ReadResponseAsync<WklejResponse>(msg);
+
+		return response.Short;
+
+		/*_client.BaseAddress = new Uri("https://n9.cl/");
 
 		var content = JsonContent.Create(new
 		{
@@ -26,9 +42,9 @@ public class ShortLinkService : IShortLinkService
 
 		var response = await ReadResponseAsync<N9Response>(msg);
 
-		return response.Short;
+		return response.Short;*/
 	}
-	
+
 	private static async Task<TResponse> ReadResponseAsync<TResponse>(HttpResponseMessage msg,
 		CancellationToken ct = default) where TResponse : class
 	{
@@ -36,7 +52,7 @@ public class ShortLinkService : IShortLinkService
 
 		return IsJson(response) ? response.Deserialize<TResponse>() : default!;
 	}
-	
+
 	private static bool IsJson(string response)
 	{
 		return (response.StartsWith("{") && response.TrimEnd().EndsWith("}")) ||
