@@ -18,33 +18,7 @@ public class ShortLinkService : IShortLinkService
 
 	public async Task<string> GetShortLink(string link)
 	{
-		_client.BaseAddress = new Uri("https://wklej.to/");
-
-		Console.WriteLine("@@@@@@@@@@@@@@@@@@@ " + link);
-		var content = JsonContent.Create(new
-		{
-			url = link
-		});
-
-		_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "d08568b9cb0317d6829f");
-
-		try
-		{
-			var msg = await _client.PostAsync("api/url/add", content);
-
-			var response = await ReadResponseAsync<WklejResponse>(msg);
-
-			Console.WriteLine("@@@@@@@@@@@@@@@@@" + response);
-			Console.WriteLine("@@@@@@@@@@@@@@" + response.Error);
-			return response.Short;
-		}
-		catch(Exception e)
-		{
-			Console.WriteLine(e);
-			throw;
-		}
-
-		/*_client.BaseAddress = new Uri("https://n9.cl/");
+		_client.BaseAddress = new Uri("https://n9.cl/");
 
 		var content = JsonContent.Create(new
 		{
@@ -55,7 +29,7 @@ public class ShortLinkService : IShortLinkService
 
 		var response = await ReadResponseAsync<N9Response>(msg);
 
-		return response.Short;*/
+		return response.Short;
 	}
 	
 	private static async Task<TResponse> ReadResponseAsync<TResponse>(HttpResponseMessage msg,
