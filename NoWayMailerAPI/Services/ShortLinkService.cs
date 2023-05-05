@@ -33,6 +33,8 @@ public class ShortLinkService : IShortLinkService
 
 			var response = await ReadResponseAsync<WklejResponse>(msg);
 
+			Console.WriteLine(response);
+			Console.WriteLine(response.Error);
 			return response.Short;
 		}
 		catch(Exception e)
