@@ -26,12 +26,20 @@ public class ShortLinkService : IShortLinkService
 		});
 
 		_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "d08568b9cb0317d6829f");
-		
-		var msg = await _client.PostAsync("api/url/add", content);
 
-		var response = await ReadResponseAsync<WklejResponse>(msg);
+		try
+		{
+			var msg = await _client.PostAsync("api/url/add", content);
 
-		return response.Short;
+			var response = await ReadResponseAsync<WklejResponse>(msg);
+
+			return response.Short;
+		}
+		catch(Exception e)
+		{
+			Console.WriteLine(e);
+			throw;
+		}
 
 		/*_client.BaseAddress = new Uri("https://n9.cl/");
 
