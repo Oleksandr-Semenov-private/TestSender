@@ -20,6 +20,7 @@ public class ShortLinkService : IShortLinkService
 	{
 		_client.BaseAddress = new Uri("https://wklej.to/");
 
+		Console.WriteLine("@@@@@@@@@@@@@@@@@@@ " + link);
 		var content = JsonContent.Create(new
 		{
 			url = link
