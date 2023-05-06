@@ -25,7 +25,7 @@ public class SenderController : ControllerBase
         var config = new EmailSendingConfiguration();
         _configuration.GetSection("MailSettings")
             .GetChildren()
-            .First(e => e.Key == "Smtp3")
+            .First(e => e.Key == "Smtp")
             .Bind(config);
 
         _smtpClient = new SmtpClient(config.Host, config.Port)
