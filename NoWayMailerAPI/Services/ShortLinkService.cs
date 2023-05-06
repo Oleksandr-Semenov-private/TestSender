@@ -17,21 +17,6 @@ public class ShortLinkService : IShortLinkService
 
 	public async Task<string> GetShortLink(string link)
 	{
-		/*_client.BaseAddress = new Uri("https://wklej.to/");
-
-		var content = JsonContent.Create(new
-		{
-			url = link
-		});
-
-		_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "d08568b9cb0317d6829f");
-
-		var msg = await _client.PostAsync("api/url/add", content);
-
-		var response = await ReadResponseAsync<WklejResponse>(msg);
-
-		return response.Short;*/
-
 		_client.BaseAddress = new Uri("https://n9.cl/");
 
 		var content = JsonContent.Create(new
