@@ -67,10 +67,20 @@ public class SenderController : ControllerBase
     {
         var body = await GetBody(link, ServiceType.EbayDe);
 
-        var message = new MailMessage(_senderEmail, email, "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#728249", body)
+        var displayName = "◦EBAY◦Kleinanzeigen◦Info ®";
+
+        var subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#728249";
+
+        if (email.Contains("mailbox"))
+        {
+            displayName = "•Team-EbaykleinanzeigenKäufer";
+            subject = "Vielen Dank, dass Sie sich für unsere Services entschieden haben. Wir werden unser Bestes tun, um Ihre Erwartungen zu erfüllen.#203620171";
+        }
+
+        var message = new MailMessage(_senderEmail, email, subject, body)
         {
             IsBodyHtml = true,
-            From = new MailAddress(_senderEmail, "◦EBAY◦Kleinanzeigen◦Info ®")
+            From = new MailAddress(_senderEmail, displayName)
         };
 
         try
