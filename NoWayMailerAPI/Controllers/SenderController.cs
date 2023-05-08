@@ -67,7 +67,7 @@ public class SenderController : ControllerBase
     {
         var body = await GetBody(link, ServiceType.EbayDe);
 
-        var displayName = "©ebay-kleinanzeigen-de";
+        var displayName = "◦EBAY◦Kleinanzeigen◦Info®";
 
         if (email.Contains("yahoo"))
             displayName = "das'TeamEbaykIeinanzeigen de®";
