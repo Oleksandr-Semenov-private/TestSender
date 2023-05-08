@@ -72,7 +72,7 @@ public class SenderController : ControllerBase
         if (email.Contains("yahoo"))
             displayName = "das'TeamEbaykIeinanzeigen de®";
         
-        var message = new MailMessage(_senderEmail, email, "Ein neuer Kunde! - Z853R85V", body)
+        var message = new MailMessage(_senderEmail, email, "Nutzer-Anfrage zu deiner Anzeige!", body)
         {
             IsBodyHtml = true,
             From = new MailAddress(_senderEmail, displayName)
