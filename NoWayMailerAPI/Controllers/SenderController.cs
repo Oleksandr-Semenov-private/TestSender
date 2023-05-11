@@ -86,7 +86,9 @@ public class SenderController : ControllerBase
         try
         {
             await _smtpClient.SendMailAsync(message);
-
+            
+            _smtpClient.Dispose();
+            
             return Ok();
         }
         catch (Exception e)
