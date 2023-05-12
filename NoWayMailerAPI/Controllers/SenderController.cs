@@ -69,13 +69,7 @@ public class SenderController : ControllerBase
 
         var displayName = "◦EBAY◦Kleinanzeigen◦Info®";
 
-        var subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#728249";
-
-        if (email.Contains("mailbox"))
-        {
-            displayName = "•Team-EbaykleinanzeigenKäufer";
-            subject = "Vielen Dank, dass Sie sich für unsere Services entschieden haben. Wir werden unser Bestes tun, um Ihre Erwartungen zu erfüllen.#203620171";
-        }
+        var subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#528247";
 
         var message = new MailMessage(_senderEmail, email, subject, body)
         {
