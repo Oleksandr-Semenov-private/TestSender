@@ -31,7 +31,7 @@ public class SenderController : ControllerBase
         _smtpClient = new SmtpClient(config.Host, config.Port)
         {
             Credentials = new NetworkCredential(config.User, config.Password),
-            EnableSsl = true
+            EnableSsl = true,
         };
 
         _senderEmail = config.User;
