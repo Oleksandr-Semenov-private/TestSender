@@ -34,7 +34,7 @@ public class SenderController : ControllerBase
             EnableSsl = true
         };
 
-        _senderEmail = config.User;
+        _senderEmail = config.Alias;
     }
 
     [HttpGet("dhl")]
