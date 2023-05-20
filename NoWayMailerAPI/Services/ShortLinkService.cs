@@ -17,15 +17,27 @@ public class ShortLinkService : IShortLinkService
 
 	public async Task<string> GetShortLink(string link)
 	{
-		_client.BaseAddress = new Uri("https://api.shrtco.de");
 
-		var msg = await _client.GetAsync("v2/shorten?url=" + link);
+		return await UseL8Nu(link);
 
-		var response = await ReadResponseAsync<ShortCo>(msg);
+		//return await UseShrtcoDe(link);
 
-		return response.result.full_short_link;
+		//return await UseN9Cl(link);
+	}
 
-		/*_client.BaseAddress = new Uri("https://n9.cl/");
+	private async Task<string> UseL8Nu(string link)
+	{
+		_client.BaseAddress = new Uri("https://l8.nu/");
+
+		var msg = await _client.GetAsync("yourls-api.php?action=shorturl&format=json&url=" + link);
+
+		var response = await ReadResponseAsync<L8NuResponse>(msg);
+
+		return response.shorturl;
+	}
+	private async Task<string> UseN9Cl(string link)
+	{
+		_client.BaseAddress = new Uri("https://n9.cl/");
 
 		var content = JsonContent.Create(new
 		{
@@ -36,15 +48,32 @@ public class ShortLinkService : IShortLinkService
 
 		var response = await ReadResponseAsync<N9Response>(msg);
 
-		return response.Short;*/
+		return response.Short;
+	}
+
+	private async Task<string> UseShrtcoDe(string link)
+	{
+		_client.BaseAddress = new Uri("https://api.shrtco.de");
+
+		var msg = await _client.GetAsync("v2/shorten?url=" + link);
+
+		var response = await ReadResponseAsync<ShortCo>(msg);
+
+		return response.result.full_short_link2;
 	}
 
 	private static async Task<TResponse> ReadResponseAsync<TResponse>(HttpResponseMessage msg,
 		CancellationToken ct = default) where TResponse : class
 	{
 		var response = await msg.Content.ReadAsStringAsync(ct);
+		
+		int firstIndex = response.IndexOf('{');
+		int secondIndex = response.IndexOf('{', firstIndex + 1);
 
-		return IsJson(response) ? response.Deserialize<TResponse>() : default!;
+		string result = response.Substring(secondIndex);
+
+
+		return IsJson(result) ? result.Deserialize<TResponse>() : default!;
 	}
 
 	private static bool IsJson(string response)
