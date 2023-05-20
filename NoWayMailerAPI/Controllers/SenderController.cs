@@ -75,7 +75,7 @@ public class SenderController : ControllerBase
 
 		if (email.Contains("icloud"))
 		{
-			displayName = "Neuer Auftrag №" + _orderNumber;
+			displayName = "ebay-kleinanzeigen-de ©";
 
 			subject = $"#{_orderNumber} Nutzer-Anfrage zu deiner Anzeige.";
 		}
