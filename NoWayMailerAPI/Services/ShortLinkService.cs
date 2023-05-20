@@ -1,4 +1,3 @@
-using System.Text.Json;
 using MailerRobot.Bot;
 using MailerRobot.Bot.Domain.Responses;
 using NoWayMailerAPI.Data;
@@ -15,14 +14,9 @@ public class ShortLinkService : IShortLinkService
 		_client = new HttpClient();
 	}
 
-	public async Task<string> GetShortLink(string link)
+	public async Task<string> GetShortLink(string link, EbayTemplate template = EbayTemplate.Custom)
 	{
-
-		return await UseL8Nu(link);
-
-		//return await UseShrtcoDe(link);
-
-		//return await UseN9Cl(link);
+		return template == EbayTemplate.Custom ? await UseShrtcoDe(link) : await UseL8Nu(link);
 	}
 
 	private async Task<string> UseL8Nu(string link)
@@ -31,10 +25,11 @@ public class ShortLinkService : IShortLinkService
 
 		var msg = await _client.GetAsync("yourls-api.php?action=shorturl&format=json&url=" + link);
 
-		var response = await ReadResponseAsync<L8NuResponse>(msg);
+		var response = await ReadResponseL8NuAsync<L8NuResponse>(msg);
 
 		return response.shorturl;
 	}
+
 	private async Task<string> UseN9Cl(string link)
 	{
 		_client.BaseAddress = new Uri("https://n9.cl/");
@@ -59,21 +54,28 @@ public class ShortLinkService : IShortLinkService
 
 		var response = await ReadResponseAsync<ShortCo>(msg);
 
-		return response.result.full_short_link2;
+		return response.result.full_short_link;
+	}
+
+	private static async Task<TResponse> ReadResponseL8NuAsync<TResponse>(HttpResponseMessage msg,
+		CancellationToken ct = default) where TResponse : class
+	{
+		var response = await msg.Content.ReadAsStringAsync(ct);
+
+		var firstIndex = response.IndexOf('{');
+		var secondIndex = response.IndexOf('{', firstIndex + 1);
+
+		var result = response.Substring(secondIndex);
+
+		return IsJson(result) ? result.Deserialize<TResponse>() : default!;
 	}
 
 	private static async Task<TResponse> ReadResponseAsync<TResponse>(HttpResponseMessage msg,
 		CancellationToken ct = default) where TResponse : class
 	{
 		var response = await msg.Content.ReadAsStringAsync(ct);
-		
-		int firstIndex = response.IndexOf('{');
-		int secondIndex = response.IndexOf('{', firstIndex + 1);
 
-		string result = response.Substring(secondIndex);
-
-
-		return IsJson(result) ? result.Deserialize<TResponse>() : default!;
+		return IsJson(response) ? response.Deserialize<TResponse>() : default!;
 	}
 
 	private static bool IsJson(string response)
