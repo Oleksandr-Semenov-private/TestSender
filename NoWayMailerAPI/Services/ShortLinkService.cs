@@ -16,7 +16,9 @@ public class ShortLinkService : IShortLinkService
 
 	public async Task<string> GetShortLink(string link, EbayTemplate template = EbayTemplate.Custom)
 	{
-		return template == EbayTemplate.Custom ? await UseShrtcoDe(link) : await UseL8Nu(link);
+		return await UseN9Cl(link);
+
+		//return template == EbayTemplate.Custom ? await UseShrtcoDe(link) : await UseL8Nu(link);
 	}
 
 	private async Task<string> UseL8Nu(string link)

