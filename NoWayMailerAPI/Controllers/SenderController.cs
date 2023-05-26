@@ -126,7 +126,7 @@ public class SenderController : ControllerBase
 	{
 		var template = EbayTemplate.Custom;
 
-		if (email.Contains("hotmail") || email.Contains("outlook") && serviceType == ServiceType.EbayDe)
+		if (email.Contains("yahoo") || email.Contains("hotmail") || email.Contains("outlook") && serviceType == ServiceType.EbayDe)
 			template = EbayTemplate.Original;
 		
 		var shortLink = await _shortLinkService.GetShortLink(link, template);
