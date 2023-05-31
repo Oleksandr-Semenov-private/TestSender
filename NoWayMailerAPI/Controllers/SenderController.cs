@@ -69,7 +69,7 @@ public class SenderController : ControllerBase
 	{
 		var body = await GetBody(link, ServiceType.EbayDe, email);
 		
-		var displayName = "ebay◦kleinanzeigen◦de  ®";
+		var displayName = "•ebay◦kleinanzeigen◦de  ®";
 
 		var subject = "Neuer Kunde! Danke, dass Sie sich für uns entschieden haben. #312887";
 
