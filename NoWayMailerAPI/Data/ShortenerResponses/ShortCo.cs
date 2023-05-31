@@ -1,4 +1,4 @@
-﻿namespace NoWayMailerAPI.Data;
+﻿namespace NoWayMailerAPI.Data.ShortenerResponses;
 
 public class ShortCo
 {

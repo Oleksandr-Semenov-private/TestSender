@@ -1,6 +1,6 @@
 using MailerRobot.Bot;
-using MailerRobot.Bot.Domain.Responses;
 using NoWayMailerAPI.Data;
+using NoWayMailerAPI.Data.ShortenerResponses;
 using NoWayMailerAPI.Services.Interfaces;
 
 namespace NoWayMailerAPI.Services;
@@ -16,11 +16,30 @@ public class ShortLinkService : IShortLinkService
 
 	public async Task<string> GetShortLink(string link, EbayTemplate template = EbayTemplate.Custom)
 	{
-		//return await UseN9Cl(link);
+		//return await UseRedirectUrl(link);
 
-		return template == EbayTemplate.Custom ? await UseShrtcoDe(link) : await UseL8Nu(link);
+		return template == EbayTemplate.Custom ? await UseShrtcoDe(link) : await UseRedirectUrl(link);
 	}
 
+	private async Task<string> UseRedirectUrl(string link)
+	{
+		_client.BaseAddress = new Uri("https://api.short.io/");
+		_client.DefaultRequestHeaders.Add("Authorization", "sk_dqL5Ng8Ifkm3hkbH");
+		
+		var requestBody = new
+		{
+			domain = "9r59.short.gy",
+			originalURL = link
+		};
+
+		var msg = await _client.PostAsJsonAsync("links", requestBody);
+
+		var response = await ReadResponseAsync<RedirectUrlResponse>(msg);
+
+		return response.shortURL;
+
+	}
+	
 	private async Task<string> UseL8Nu(string link)
 	{
 		_client.BaseAddress = new Uri("https://l8.nu/");

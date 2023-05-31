@@ -1,7 +1,6 @@
 ﻿using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 
-namespace NoWayMailerAPI.Data;
+namespace NoWayMailerAPI.Data.ShortenerResponses;
 
 public record L8NuResponse
 (
@@ -15,8 +14,10 @@ public record L8NuResponse
 	[property: JsonPropertyName("statusCode")]
 	int statusCode
 );
+
 public record Url(
-	[property: JsonPropertyName("keyword")] string keyword,
+	[property: JsonPropertyName("keyword")]
+	string keyword,
 	[property: JsonPropertyName("url")] string url,
 	[property: JsonPropertyName("title")] string title,
 	[property: JsonPropertyName("date")] string date,

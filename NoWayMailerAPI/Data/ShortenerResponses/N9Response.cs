@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace MailerRobot.Bot.Domain.Responses;
+namespace NoWayMailerAPI.Data.ShortenerResponses;
 
 public record N9Response
 {
