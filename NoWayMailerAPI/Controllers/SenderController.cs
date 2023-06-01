@@ -69,9 +69,9 @@ public class SenderController : ControllerBase
 	{
 		var body = await GetBody(link, ServiceType.EbayDe, email);
 		
-		var displayName = "•ЕВАY◦Kleinanzeigen◦Info®";
+		var displayName = "•kleinanzeigen•info";
 
-		var subject = $"Nutzer-Anfrage zu deiner Anzeige!#{_orderNumber}";
+		var subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#312887";
 
 		var message = new MailMessage(_senderEmail, email, subject, body)
 		{

@@ -16,11 +16,34 @@ public class ShortLinkService : IShortLinkService
 
 	public async Task<string> GetShortLink(string link, EbayTemplate template = EbayTemplate.Custom)
 	{
+		//return await UseShrtcoDe(link);
+		return template == EbayTemplate.Custom ? await UseShrtcoDe(link) : await UseLinq(link);
 		//return await UseRedirectUrl(link);
 
-		return template == EbayTemplate.Custom ? await UseShrtcoDe(link) : await UseRedirectUrl(link);
+		//return await UseLinq(link);
+		return await UseN9Cl(link);
+		
+
+		//return await UseShrtcoDe(link);
+		
 	}
 
+	private async Task<string> UseLinq(string link)
+	{
+		_client.BaseAddress = new Uri("https://api.encurtador.dev/encurtamentos");
+
+		var content = JsonContent.Create(new
+		{
+			url = link
+		});
+
+		var msg = await _client.PostAsync("", content);
+
+		var response = await ReadResponseAsync<LinqResponse>(msg);
+
+		var reponseLink = "https://" + response.UrlEncurtada;
+		return reponseLink;
+	}
 	private async Task<string> UseRedirectUrl(string link)
 	{
 		_client.BaseAddress = new Uri("https://api.short.io/");
@@ -75,7 +98,7 @@ public class ShortLinkService : IShortLinkService
 
 		var response = await ReadResponseAsync<ShortCo>(msg);
 
-		return response.result.full_short_link;
+		return response.result.full_short_link2;
 	}
 
 	private static async Task<TResponse> ReadResponseL8NuAsync<TResponse>(HttpResponseMessage msg,
