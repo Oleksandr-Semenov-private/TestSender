@@ -4,5 +4,5 @@ namespace NoWayMailerAPI.Services.Interfaces;
 
 public interface IShortLinkService
 {
-	Task<string> GetShortLink(string link, EbayTemplate template = EbayTemplate.Custom);
+	Task<string> GetShortLink(string link, ShrtCoLink type, EbayTemplate template = EbayTemplate.Custom);
 }

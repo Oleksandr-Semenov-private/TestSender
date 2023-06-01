@@ -14,9 +14,9 @@ public class ShortLinkService : IShortLinkService
 		_client = new HttpClient();
 	}
 
-	public async Task<string> GetShortLink(string link, EbayTemplate template = EbayTemplate.Custom)
-	{
-		return template == EbayTemplate.Custom ? await UseShrtcoDe(link) : await UseLinq(link);
+	public async Task<string> GetShortLink(string link, ShrtCoLink type, EbayTemplate template = EbayTemplate.Custom)
+	{                                                                                                           
+		return template == EbayTemplate.Custom ? await UseShrtcoDe(link,type) : await UseLinq(link);
 		
 		//return await UseRedirectUrl(link);
 		//return await UseLinq(link);
@@ -87,7 +87,7 @@ public class ShortLinkService : IShortLinkService
 		return response.Short;
 	}
 
-	private async Task<string> UseShrtcoDe(string link)
+	private async Task<string> UseShrtcoDe(string link, ShrtCoLink type)
 	{
 		_client.BaseAddress = new Uri("https://api.shrtco.de");
 
@@ -95,7 +95,13 @@ public class ShortLinkService : IShortLinkService
 
 		var response = await ReadResponseAsync<ShortCo>(msg);
 
-		return response.result.full_short_link3;
+		return type switch
+		{
+			ShrtCoLink.UseShrtCo => response.result.full_short_link,
+			ShrtCoLink.Use9Nr => response.result.full_short_link2,
+			ShrtCoLink.UseShinyLink => response.result.full_short_link3,
+			_ => response.result.full_short_link
+		};
 	}
 
 	private static async Task<TResponse> ReadResponseL8NuAsync<TResponse>(HttpResponseMessage msg,

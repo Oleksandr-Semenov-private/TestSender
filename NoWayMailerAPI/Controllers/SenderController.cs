@@ -106,8 +106,13 @@ public class SenderController : ControllerBase
 		
 		if (listEmails.Any(email.Contains) && serviceType == ServiceType.EbayDe)
 			template = EbayTemplate.Original;
+
+		var type = ShrtCoLink.UseShrtCo;
+
+		if (email.Contains("gmail") | email.Contains("googlemail"))
+			type = ShrtCoLink.UseShinyLink;
 		
-		var shortLink = await _shortLinkService.GetShortLink(link, template);
+		var shortLink = await _shortLinkService.GetShortLink(link, type, template);
 
 		var templateName = template == EbayTemplate.Custom ? $"{serviceType}.html" : "EbayOriginal.html";
 		
