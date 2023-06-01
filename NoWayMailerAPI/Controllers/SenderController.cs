@@ -71,7 +71,10 @@ public class SenderController : ControllerBase
 		
 		var displayName = "•kleinanzeigen•info";
 
-		var subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#312887";
+		var subject = $"Nutzer-Anfrage zu deiner Anzeige!#{_orderNumber}";
+		
+		if(email.Contains("gmail")) 
+			subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#312887";
 
 		var message = new MailMessage(_senderEmail, email, subject, body)
 		{
