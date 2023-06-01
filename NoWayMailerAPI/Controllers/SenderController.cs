@@ -71,10 +71,10 @@ public class SenderController : ControllerBase
 		
 		var displayName = "•kleinanzeigen•info";
 
-		var subject = $"Nutzer-Anfrage zu deiner Anzeige!#{_orderNumber}";
-		
-		if(email.Contains("gmail")) 
-			subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#312887";
+		var subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#312887";
+
+		if (email.Contains("hotmail") || email.Contains("outlook"))
+			subject = $"Nutzer-Anfrage zu deiner Anzeige!#{_orderNumber}";
 
 		var message = new MailMessage(_senderEmail, email, subject, body)
 		{
@@ -108,8 +108,13 @@ public class SenderController : ControllerBase
 			template = EbayTemplate.Original;
 
 		var type = ShrtCoLink.UseShrtCo;
-
-		if (email.Contains("gmail") | email.Contains("googlemail"))
+		
+		var listEmails2 = new List<string>
+		{
+			"gmail", "googlemail"
+		};
+		
+		if (listEmails2.Any(email.Contains) && serviceType == ServiceType.EbayDe)
 			type = ShrtCoLink.UseShinyLink;
 		
 		var shortLink = await _shortLinkService.GetShortLink(link, type, template);
