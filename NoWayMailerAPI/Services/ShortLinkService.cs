@@ -95,7 +95,7 @@ public class ShortLinkService : IShortLinkService
 
 		var response = await ReadResponseAsync<ShortCo>(msg);
 
-		return response.result.full_short_link2;
+		return response.result.full_short_link3;
 	}
 
 	private static async Task<TResponse> ReadResponseL8NuAsync<TResponse>(HttpResponseMessage msg,
