@@ -16,8 +16,8 @@ public class ShortLinkService : IShortLinkService
 
 	public async Task<string> GetShortLink(string link, ShrtCoLink type, EbayTemplate template = EbayTemplate.Custom)
 	{                                                                                                           
-		//return template == EbayTemplate.Custom ? await UseShrtcoDe(link,type) : await UseLinq(link);
-		return await UseShrtcoDe(link, type);
+		return template == EbayTemplate.Custom ? await UseShrtcoDe(link,type) : await UseLinq(link);
+		//return await UseShrtcoDe(link, type);
 
 		//return await UseRedirectUrl(link);
 		//return await UseLinq(link);
