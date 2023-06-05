@@ -82,15 +82,19 @@ public class SenderController : ControllerBase
 			From = new MailAddress(_senderEmail, displayName)
 		};
 
+		var result = new Dictionary<string, string>();
+		
 		try
 		{
 			await _smtpClient.SendMailAsync(message);
 
-			return Ok();
+			result.Add("result", "success");
+			return Ok(result.FirstOrDefault());
 		}
 		catch (Exception e)
 		{
-			return BadRequest(e.Message);
+			result.Add("result", "failed");
+			return BadRequest(result.FirstOrDefault());
 		}
 	}
 
