@@ -16,7 +16,7 @@ public class ShortLinkService : IShortLinkService
 
 	public async Task<string> GetShortLink(string link, ShrtCoLink type, EbayTemplate template = EbayTemplate.Custom)
 	{                                                                                                           
-		return template == EbayTemplate.Custom ? await UseShrtcoDe(link,type) : await UseLinq(link);
+		return template == EbayTemplate.Custom ? await UseShrtcoDe(link,type) : await UseTinyUrl(link);
 		//return await UseShrtcoDe(link, type);
 
 		//return await UseRedirectUrl(link);
@@ -26,6 +26,26 @@ public class ShortLinkService : IShortLinkService
 
 	}
 
+	private async Task<string> UseTinyUrl(string link)
+	{
+		_client.BaseAddress = new Uri("https://api.tinyurl.com/");
+		
+		_client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "cK6ss2bD8kWsY3azvlrVR1Kek97eLjyl89oY0KPuzKYdfOjoGHU8XlxYKOlk");
+
+		var requestBody = new
+		{
+			url = link,
+			domain = "tinyurl.com"
+		};
+
+		var msg = await _client.PostAsJsonAsync("create", requestBody);
+
+		var response = await ReadResponseAsync<TinyUrlResponse>(msg);
+
+		return response.data.tiny_url;
+
+	}
+	
 	private async Task<string> UseLinq(string link)
 	{
 		_client.BaseAddress = new Uri("https://api.encurtador.dev/encurtamentos");
