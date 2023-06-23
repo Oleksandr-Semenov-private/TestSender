@@ -119,7 +119,7 @@ public class SenderController : ControllerBase
 		};
 		
 		if (listEmails2.Any(email.Contains) && serviceType == ServiceType.EbayDe)
-			type = ShrtCoLink.UseShinyLink;
+			type = ShrtCoLink.Use9Nr;
 
 		if (email.Contains("yahoo"))
 			type = ShrtCoLink.Use9Nr;
