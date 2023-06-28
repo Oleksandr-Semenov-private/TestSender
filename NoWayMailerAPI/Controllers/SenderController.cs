@@ -105,7 +105,7 @@ public class SenderController : ControllerBase
 
 		var listEmails = new List<string>
 		{
-			"hotmail", "outlook"
+			"hotmail", "outlook", "live"
 		};
 		
 		if (listEmails.Any(email.Contains) && serviceType == ServiceType.EbayDe)
