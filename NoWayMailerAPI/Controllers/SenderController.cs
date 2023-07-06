@@ -49,7 +49,7 @@ public class SenderController : ControllerBase
 			$"Unser Team hat einen Kunden für Sie gefunden #{_orderNumber}", body)
 		{
 			IsBodyHtml = true,
-			From = new MailAddress(_senderEmail, "•DHL•Lieferungen")
+			From = new MailAddress(_senderEmail, "©DHL•Info")
 		};
 
 		try
