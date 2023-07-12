@@ -71,7 +71,7 @@ public class SenderController : ControllerBase
 		
 		var displayName = "•KLEINANZEIGEN•Info";
 
-		var subject = "Bezahlung der Ware! Vielen Dank, dass Sie sich für uns entschieden haben.#312887";
+		var subject = "Neuer Kunde! Vielen Dank, dass Sie sich für uns entschieden haben.#332511";
 
 		if (email.Contains("hotmail") || email.Contains("outlook"))
 			subject = $"Nutzer-Anfrage zu deiner Anzeige!#{_orderNumber}";
