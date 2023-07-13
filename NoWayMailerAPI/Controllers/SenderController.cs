@@ -75,7 +75,7 @@ public class SenderController : ControllerBase
 		//var subject = "Guten abend! Vielen Dank, dass Sie sich für uns entschieden haben.#312887";
 
 		if (email.Contains("hotmail") || email.Contains("outlook"))
-			subject = $"Nutzer-Anfrage zu deiner Anzeige!#{_orderNumber}";
+			subject = $"! Nutzer-Anfrage zu deiner Anzeige! #{_orderNumber}";
 
 		var message = new MailMessage(_senderEmail, email, subject, body)
 		{
